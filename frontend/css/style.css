@@ -1,0 +1,496 @@
+/* ==========================================================================
+   BitrixPro — Custom Styles
+   ========================================================================== */
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f5;
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #3B5BFF, #7B3FE4);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #2a4aff, #6a2ed4);
+}
+
+/* ==========================================================================
+   Gradient Text
+   ========================================================================== */
+.gradient-text {
+    background: linear-gradient(135deg, #3B5BFF 0%, #7B3FE4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+#main-header {
+    background: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(0);
+    transition: all 0.3s ease;
+}
+
+#main-header.scrolled {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, #3B5BFF, #7B3FE4);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* ==========================================================================
+   Scroll Reveal Animations
+   ========================================================================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   Keyframe Animations
+   ========================================================================== */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes chartGrow {
+    from {
+        transform: scaleY(0);
+    }
+    to {
+        transform: scaleY(1);
+    }
+}
+
+.animate-chart {
+    transform-origin: bottom;
+    animation: chartGrow 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    opacity: 0;
+    animation-fill-mode: forwards;
+    animation: chartGrow 1s cubic-bezier(0.4, 0, 0.2, 1) forwards, fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* ==========================================================================
+   Problem Cards
+   ========================================================================== */
+.problem-card {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    border: 1px solid #f1f1f5;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.problem-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(123, 63, 228, 0.12);
+    border-color: rgba(123, 63, 228, 0.2);
+}
+
+.icon-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+    transition: all 0.3s ease;
+}
+
+.problem-card:hover .icon-wrap {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+/* ==========================================================================
+   Solution Cards
+   ========================================================================== */
+.solution-card {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    border: 1px solid #f1f1f5;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.solution-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, #3B5BFF, #7B3FE4);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.solution-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(59, 91, 255, 0.15);
+    border-color: rgba(123, 63, 228, 0.2);
+}
+
+.solution-card:hover::before {
+    transform: scaleX(1);
+}
+
+.solution-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, rgba(59, 91, 255, 0.1), rgba(123, 63, 228, 0.1));
+    color: #7B3FE4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    margin-bottom: 1.25rem;
+    transition: all 0.3s ease;
+}
+
+.solution-card:hover .solution-icon {
+    background: linear-gradient(135deg, #3B5BFF, #7B3FE4);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* ==========================================================================
+   Advantage Cards
+   ========================================================================== */
+.advantage-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.5rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+.advantage-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-8px);
+}
+
+/* ==========================================================================
+   Case Cards
+   ========================================================================== */
+.case-card {
+    background: white;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    border: 1px solid #f1f1f5;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.case-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 70px rgba(123, 63, 228, 0.18);
+}
+
+.case-image {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.case-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 60%);
+}
+
+.case-card:hover .case-image i {
+    transform: scale(1.15) rotate(-5deg);
+}
+
+.case-image i {
+    transition: transform 0.5s ease;
+}
+
+/* ==========================================================================
+   Pricing Cards
+   ========================================================================== */
+.pricing-card {
+    background: white;
+    border-radius: 2rem;
+    padding: 2.5rem;
+    border: 1px solid #f1f1f5;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 70px rgba(123, 63, 228, 0.15);
+}
+
+.pricing-popular {
+    background: linear-gradient(135deg, #3B5BFF 0%, #7B3FE4 100%);
+    border: none;
+    transform: scale(1.02);
+    box-shadow: 0 25px 60px rgba(123, 63, 228, 0.3);
+}
+
+.pricing-popular:hover {
+    transform: scale(1.02) translateY(-10px);
+    box-shadow: 0 35px 80px rgba(123, 63, 228, 0.4);
+}
+
+/* ==========================================================================
+   Process Cards
+   ========================================================================== */
+.process-card {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    border: 1px solid #f1f1f5;
+    position: relative;
+    transition: all 0.4s ease;
+    overflow: hidden;
+}
+
+.process-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(123, 63, 228, 0.08), transparent 70%);
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+.process-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(59, 91, 255, 0.12);
+    border-color: rgba(123, 63, 228, 0.2);
+}
+
+.process-card:hover::before {
+    opacity: 1;
+    top: -30%;
+    right: -30%;
+}
+
+.process-number {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 2.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #3B5BFF, #7B3FE4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+}
+
+.process-card:hover .process-number {
+    opacity: 0.8;
+}
+
+.process-icon {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, #3B5BFF, #7B3FE4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+/* ==========================================================================
+   About Stats
+   ========================================================================== */
+.about-stat {
+    border-radius: 1.5rem;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s ease;
+}
+
+.about-stat:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================================================
+   Form
+   ========================================================================== */
+.form-input {
+    width: 100%;
+    padding: 0.875rem 1.25rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0.875rem;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.form-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.form-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(123, 63, 228, 0.6);
+    box-shadow: 0 0 0 4px rgba(123, 63, 228, 0.15);
+}
+
+/* ==========================================================================
+   Social Links
+   ========================================================================== */
+.social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 0.75rem;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: linear-gradient(135deg, #3B5BFF, #7B3FE4);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(123, 63, 228, 0.4);
+}
+
+/* ==========================================================================
+   Responsive Tweaks
+   ========================================================================== */
+@media (max-width: 768px) {
+    .pricing-popular {
+        transform: scale(1);
+    }
+    .pricing-popular:hover {
+        transform: translateY(-10px);
+    }
+    
+    h1 {
+        font-size: 2.25rem !important;
+        line-height: 1.15 !important;
+    }
+}
+
+/* ==========================================================================
+   Loading Animation
+   ========================================================================== */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   Button hover effect
+   ========================================================================== */
+.btn-primary {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:hover::before {
+    width: 500px;
+    height: 500px;
+}
+
+.btn-primary > * {
+    position: relative;
+    z-index: 1;
+}

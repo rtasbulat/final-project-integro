@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntegroSystems.ai — Автоматизация бизнес-процессов на Bitrix24</title>
+    <meta name="description" content="Внедрение и настройка Bitrix24 под ключ: CRM, продажи, задачи, аналитика. Автоматизируем бизнес-процессы и увеличиваем прибыль.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-blue': '#3B5BFF',
+                        'brand-purple': '#7B3FE4',
+                        'brand-dark': '#0A0E27',
+                        'brand-light': '#F7F8FC',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s ease-in-out infinite',
+                        'gradient': 'gradient 8s ease infinite',
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans bg-white text-brand-dark antialiased">
+
+    <!-- Header -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between py-4">
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-2 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-blue to-brand-purple flex items-center justify-center shadow-lg shadow-brand-purple/30 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-bolt text-white text-lg"></i>
+                    </div>
+                    <span class="text-xl font-bold bg-gradient-to-r from-brand-blue to-brand-purple bg-clip-text text-transparent">IntegroSystems.ai</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <a href="#services" class="nav-link text-gray-700 hover:text-brand-purple font-medium transition-colors">Услуги</a>
+                    <a href="#solutions" class="nav-link text-gray-700 hover:text-brand-purple font-medium transition-colors">Решения</a>
+                    <a href="#cases" class="nav-link text-gray-700 hover:text-brand-purple font-medium transition-colors">Кейсы</a>
+                    <a href="#pricing" class="nav-link text-gray-700 hover:text-brand-purple font-medium transition-colors">Прайс</a>
+                    <a href="#contacts" class="nav-link text-gray-700 hover:text-brand-purple font-medium transition-colors">Контакты</a>
+                </nav>
+
+                <!-- CTA Button -->
+                <div class="flex items-center space-x-4">
+                    <a href="#contact-form" class="hidden md:inline-flex items-center px-6 py-2.5 rounded-full bg-gradient-to-r from-brand-blue to-brand-purple text-white font-semibold shadow-lg shadow-brand-purple/30 hover:shadow-xl hover:shadow-brand-purple/40 hover:-translate-y-0.5 transition-all">
+                        Оставить заявку
+                    </a>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-brand-dark" aria-label="Меню">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <nav id="mobile-menu" class="lg:hidden hidden bg-white rounded-2xl shadow-xl p-4 mb-4 border border-gray-100">
+                <div class="flex flex-col space-y-3">
+                    <a href="#services" class="mobile-link text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-50">Услуги</a>
+                    <a href="#solutions" class="mobile-link text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-50">Решения</a>
+                    <a href="#cases" class="mobile-link text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-50">Кейсы</a>
+                    <a href="#pricing" class="mobile-link text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-50">Прайс</a>
+                    <a href="#contacts" class="mobile-link text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-50">Контакты</a>
+                    <a href="#contact-form" class="mobile-link text-center py-3 px-4 rounded-full bg-gradient-to-r from-brand-blue to-brand-purple text-white font-semibold">Оставить заявку</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
+        <!-- Animated Background -->
+        <div class="absolute inset-0 -z-10">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-blue/20 rounded-full filter blur-3xl animate-pulse-slow"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-purple/20 rounded-full filter blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-brand-blue/10 to-brand-purple/10 rounded-full filter blur-3xl"></div>
+        </div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Content -->
+                <div class="reveal">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-brand-blue/10 to-brand-purple/10 border border-brand-purple/20 mb-6">
+                        <span class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
+                        <span class="text-sm font-medium text-brand-purple">Официальный партнер Bitrix24</span>
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+                        Автоматизируем <span class="gradient-text">бизнес-процессы</span> и увеличиваем прибыль
+                    </h1>
+                    
+                    <p class="text-lg lg:text-xl text-gray-600 mb-8 leading-relaxed">
+                        Внедрение и настройка Bitrix24 под ключ: CRM, продажи, задачи, аналитика. Экономим ваше время и автоматизируем рутину.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                        <a href="#contact-form" class="btn-primary inline-flex items-center justify-center px-8 py-4 rounded-full bg-gradient-to-r from-brand-blue to-brand-purple text-white font-semibold shadow-xl shadow-brand-purple/30 hover:shadow-2xl hover:shadow-brand-purple/50 hover:-translate-y-1 transition-all">
+                            <i class="fas fa-rocket mr-2"></i>
+                            Получить консультацию
+                        </a>
+                        <a href="#pricing" class="inline-flex items-center justify-center px-8 py-4 rounded-full bg-white border-2 border-gray-200 text-brand-dark font-semibold hover:border-brand-purple hover:text-brand-purple transition-all">
+                            <i class="fas fa-calculator mr-2"></i>
+                            Рассчитать стоимость
+                        </a>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-4 lg:gap-8 pt-8 border-t border-gray-200">
+                        <div>
+                            <div class="text-3xl lg:text-4xl font-bold gradient-text counter" data-target="100">0</div>
+                            <div class="text-sm text-gray-600 mt-1">Внедрений</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl lg:text-4xl font-bold gradient-text counter" data-target="5">0</div>
+                            <div class="text-sm text-gray-600 mt-1">Лет опыта</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl lg:text-4xl font-bold gradient-text"><span class="counter" data-target="98">0</span>%</div>
+                            <div class="text-sm text-gray-600 mt-1">Довольных клиентов</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Visual -->
+                <div class="relative reveal" data-delay="200">
+                    <div class="relative">
+                        <!-- Main Dashboard Card -->
+                        <div class="relative bg-white rounded-3xl shadow-2xl p-6 border border-gray-100 z-20">
+                            <div class="flex items-center justify-between mb-6">
+                                <div>
+                                    <div class="text-sm text-gray-500">Продажи за месяц</div>
+                                    <div class="text-2xl font-bold text-brand-dark">₸ 12,450,000</div>
+                                </div>
+                                <div class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-semibold flex items-center">
+                                    <i class="fas fa-arrow-up text-xs mr-1"></i>+34%
+                                </div>
+                            </div>
+                            
+                            <!-- Chart -->
+                            <div class="flex items-end space-x-2 h-40 mb-6">
+                                <div class="flex-1 bg-gradient-to-t from-brand-blue/20 to-brand-blue/5 rounded-t-lg relative overflow-hidden" style="height: 40%;">
+                                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-brand-blue to-brand-purple rounded-t-lg animate-chart" style="height: 100%; animation-delay: 0.1s;"></div>
+                                </div>
+                                <div class="flex-1 bg-gradient-to-t from-brand-blue/20 to-brand-blue/5 rounded-t-lg relative overflow-hidden" style="height: 60%;">
+                                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-brand-blue to-brand-purple rounded-t-lg animate-chart" style="height: 100%; animation-delay: 0.2s;"></div>
+                                </div>
+                                <div class="flex-1 bg-gradient-to-t from-brand-blue/20 to-brand-blue/5 rounded-t-lg relative overflow-hidden" style="height: 45%;">
+                                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-brand-blue to-brand-purple rounded-t-lg animate-chart" style="height: 100%; animation-delay: 0.3s;"></div>
+                                </div>
+                                <div class="flex-1 bg-gradient-to-t from-brand-blue/20 to-brand-blue/5 rounded-t-lg relative overflow-hidden" style="height: 75%;">
+                                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-brand-blue to-brand-purple rounded-t-lg animate-chart" style="height: 100%; animation-delay: 0.4s;"></div>
+                                </div>
+                                <div class="flex-1 bg-gradient-to-t from-brand-blue/20 to-brand-blue/5 rounded-t-lg relative overflow-hidden" style="height: 65%;">
+                                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-brand-blue to-brand-purple rounded-t-lg animate-chart" style="height: 100%; animation-delay: 0.5s;"></div>
+                                </div>
+                                <div class="flex-1 bg-gradient-to-t from-brand-blue/20 to-brand-blue/5 rounded-t-lg relative overflow-hidden" style="height: 85%;">
+                                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-brand-blue to-brand-purple rounded-t-lg animate-chart" style="height: 100%; animation-delay: 0.6s;"></div>
+                                </div>
+                                <div class="flex-1 bg-gradient-to-t from-brand-blue/20 to-brand-blue/5 rounded-t-lg relative overflow-hidden" style="height: 100%;">
+                                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-brand-blue to-brand-purple rounded-t-lg animate-chart" style="height: 100%; animation-delay: 0.7s;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Lead Items -->
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 rounded-xl bg-gray-50">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-blue to-brand-purple flex items-center justify-center text-white font-semibold">А</div>
+                                        <div>
+                                            <div class="text-sm font-semibold">Новая заявка</div>
+                                            <div class="text-xs text-gray-500">ТОО "АлмаТрейд"</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-xs text-green-600 font-semibold">Новый</div>
+                                </div>
+                                <div class="flex items-center justify-between p-3 rounded-xl bg-gray-50">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-semibold">Б</div>
+                                        <div>
+                                            <div class="text-sm font-semibold">Сделка закрыта</div>
+                                            <div class="text-xs text-gray-500">ИП "Бизнес Плюс"</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-xs text-brand-purple font-semibold">₸ 850 000</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Cards -->
+                        <div class="absolute -top-6 -right-6 bg-white rounded-2xl shadow-xl p-4 z-30 animate-float border border-gray-100">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
+                                    <i class="fas fa-chart-line text-green-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-500">Конверсия</div>
+                                    <div class="text-lg font-bold text-brand-dark">+45%</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-4 z-30 animate-float border border-gray-100" style="animation-delay: 1s;">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+                                    <i class="fas fa-users text-brand-blue text-xl"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-500">Новые клиенты</div>
+                                    <div class="text-lg font-bold text-brand-dark">128</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problems Section -->
+    <section id="problems" class="py-20 lg:py-28 bg-gradient-to-b from-white to-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center mb-16 reveal">
+                <div class="inline-block px-4 py-2 rounded-full bg-red-50 text-red-600 text-sm font-semibold mb-4">
+                    <i class="fas fa-exclamation-circle mr-1"></i> Знакомо?
+                </div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6">
+                    С какими проблемами <span class="gradient-text">к нам приходят</span>
+                </h2>
+                <p class="text-lg text-gray-600">Большинство компаний теряет деньги из-за этих проблем. Узнаёте свой бизнес?</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="problem-card reveal">
+                    <div class="icon-wrap bg-red-100">
+                        <i class="fas fa-inbox text-red-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Потеря заявок</h3>
+                    <p class="text-gray-600">Заявки из разных каналов теряются, менеджеры забывают перезванивать, а клиенты уходят к конкурентам.</p>
+                </div>
+
+                <div class="problem-card reveal" data-delay="100">
+                    <div class="icon-wrap bg-orange-100">
+                        <i class="fas fa-tasks text-orange-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Хаос в задачах и продажах</h3>
+                    <p class="text-gray-600">Менеджеры ведут клиентов в Excel, мессенджерах и блокнотах. Невозможно понять, что происходит в компании.</p>
+                </div>
+
+                <div class="problem-card reveal" data-delay="200">
+                    <div class="icon-wrap bg-yellow-100">
+                        <i class="fas fa-user-slash text-yellow-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Нет контроля сотрудников</h3>
+                    <p class="text-gray-600">Не видно, кто и сколько работает, кто закрывает сделки, а кто просто имитирует активность.</p>
+                </div>
+
+                <div class="problem-card reveal">
+                    <div class="icon-wrap bg-purple-100">
+                        <i class="fas fa-chart-pie text-brand-purple"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Нет аналитики</h3>
+                    <p class="text-gray-600">Принимаете решения вслепую, без цифр и отчетов. Не знаете откуда идут клиенты и что приносит прибыль.</p>
+                </div>
+
+                <div class="problem-card reveal" data-delay="100">
+                    <div class="icon-wrap bg-blue-100">
+                        <i class="fas fa-cogs text-brand-blue"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Ручная работа и ошибки</h3>
+                    <p class="text-gray-600">Сотрудники тратят часы на рутину: переписывают данные, выставляют счета, отправляют одинаковые письма.</p>
+                </div>
+
+                <div class="problem-card reveal bg-gradient-to-br from-brand-blue to-brand-purple text-white" data-delay="200">
+                    <div class="icon-wrap bg-white/20">
+                        <i class="fas fa-check-circle text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Мы решим всё это</h3>
+                    <p class="text-white/90 mb-4">Настроим Bitrix24 под ваш бизнес за 2-4 недели. Гарантия результата.</p>
+                    <a href="#contact-form" class="inline-flex items-center text-white font-semibold hover:underline">
+                        Обсудить проект <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solutions" class="py-20 lg:py-28">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center mb-16 reveal">
+                <div class="inline-block px-4 py-2 rounded-full bg-brand-blue/10 text-brand-blue text-sm font-semibold mb-4">
+                    <i class="fas fa-lightbulb mr-1"></i> Наши решения
+                </div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6">
+                    Как мы решаем <span class="gradient-text">эти задачи</span>
+                </h2>
+                <p class="text-lg text-gray-600">Комплексный подход к автоматизации вашего бизнеса на базе Bitrix24</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="solution-card reveal">
+                    <div class="solution-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Внедрение Bitrix24</h3>
+                    <p class="text-gray-600 mb-4">Настроим систему под ваши бизнес-процессы с нуля. Быстрый старт за 2 недели.</p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i>Аудит бизнеса</li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i>Настройка под задачи</li>
+                    </ul>
+                </div>
+
+                <div class="solution-card reveal" data-delay="100">
+                    <div class="solution-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Настройка CRM</h3>
+                    <p class="text-gray-600 mb-4">Единая база клиентов, история коммуникаций, автоматические напоминания.</p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i>Карточки клиентов</li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i>Сегментация базы</li>
+                    </ul>
+                </div>
+
+                <div class="solution-card reveal" data-delay="200">
+                    <div class="solution-icon">
+                        <i class="fas fa-funnel-dollar"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Автоматизация воронки продаж</h3>
+                    <p class="text-gray-600 mb-4">Автоматические задачи, письма, уведомления на каждом этапе сделки.</p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i>Воронки продаж</li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i>Триггеры и роботы</li>
+                    </ul>
+                </div>
+
+                <div class="solution-card reveal">
+                    <div class="solution-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Интеграции</h3>
+                    <p class="text-gray-600 mb-4">WhatsApp, сайт, телефония, 1С, соцсети — всё в одной системе.</p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i>WhatsApp и Telegram</li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i>IP-телефония</li>
+                    </ul>
+                </div>
+
+                <div class="solution-card reveal" data-delay="100">
+                    <div class="solution-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Настройка бизнес-процессов</h3>
+                    <p class="text-gray-600 mb-4">Автоматизация согласований, документооборота, задач между отделами.</p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i>BPM-процессы</li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i>Роботы и триггеры</li>
+                    </ul>
+                </div>
+
+                <div class="solution-card reveal" data-delay="200">
+                    <div class="solution-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Обучение сотрудников</h3>
+                    <p class="text-gray-600 mb-4">Научим вашу команду эффективно работать в системе. Видеоуроки и инструкции.</p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i>Вебинары для команды</li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i>Регламенты работы</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages Section -->
+    <section id="services" class="py-20 lg:py-28 bg-gradient-to-br from-brand-dark via-brand-dark to-purple-950 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-blue rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-purple rounded-full filter blur-3xl"></div>
+        </div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="max-w-3xl mx-auto text-center mb-16 reveal">
+                <div class="inline-block px-4 py-2 rounded-full bg-white/10 text-white text-sm font-semibold mb-4 backdrop-blur-sm">
+                    <i class="fas fa-star mr-1"></i> Наши преимущества
+                </div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6">
+                    Почему выбирают <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">именно нас</span>
+                </h2>
+                <p class="text-lg text-white/80">Мы не просто внедряем систему — мы делаем её работающим инструментом для роста прибыли</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                <div class="advantage-card reveal">
+                    <div class="text-4xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">5+</div>
+                    <h3 class="text-lg font-bold mb-2">Лет опыта</h3>
+                    <p class="text-sm text-white/70">На рынке автоматизации бизнеса</p>
+                </div>
+
+                <div class="advantage-card reveal" data-delay="100">
+                    <div class="text-4xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">100+</div>
+                    <h3 class="text-lg font-bold mb-2">Внедрений</h3>
+                    <p class="text-sm text-white/70">В различных нишах и масштабах</p>
+                </div>
+
+                <div class="advantage-card reveal" data-delay="200">
+                    <div class="text-4xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">
+                        <i class="fas fa-key text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Под ключ</h3>
+                    <p class="text-sm text-white/70">Работаем от идеи до результата</p>
+                </div>
+
+                <div class="advantage-card reveal" data-delay="300">
+                    <div class="text-4xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">
+                        <i class="fas fa-headset text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Поддержка</h3>
+                    <p class="text-sm text-white/70">Сопровождение после запуска</p>
+                </div>
+
+                <div class="advantage-card reveal" data-delay="400">
+                    <div class="text-4xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">
+                        <i class="fas fa-bolt text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Быстро</h3>
+                    <p class="text-sm text-white/70">Запуск от 2 недель</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cases Section -->
+    <section id="cases" class="py-20 lg:py-28">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center mb-16 reveal">
+                <div class="inline-block px-4 py-2 rounded-full bg-brand-purple/10 text-brand-purple text-sm font-semibold mb-4">
+                    <i class="fas fa-briefcase mr-1"></i> Наши кейсы
+                </div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6">
+                    Реальные результаты <span class="gradient-text">наших клиентов</span>
+                </h2>
+                <p class="text-lg text-gray-600">Цифры говорят громче слов. Посмотрите, как мы помогли другим компаниям</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <article class="case-card reveal">
+                    <div class="case-image bg-gradient-to-br from-blue-500 to-purple-600">
+                        <i class="fas fa-store text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-brand-purple font-semibold mb-2">E-commerce</div>
+                        <h3 class="text-xl font-bold mb-3">Интернет-магазин одежды</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Внедрили CRM, интегрировали сайт и WhatsApp, настроили автоматическую воронку.</p>
+                        <div class="grid grid-cols-2 gap-3 pt-4 border-t border-gray-100">
+                            <div>
+                                <div class="text-2xl font-bold gradient-text">+200%</div>
+                                <div class="text-xs text-gray-500">Заявок</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold gradient-text">-50%</div>
+                                <div class="text-xs text-gray-500">Ручной работы</div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="case-card reveal" data-delay="100">
+                    <div class="case-image bg-gradient-to-br from-purple-500 to-pink-600">
+                        <i class="fas fa-home text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-brand-purple font-semibold mb-2">Недвижимость</div>
+                        <h3 class="text-xl font-bold mb-3">Агентство недвижимости</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Автоматизировали работу с клиентами, интегрировали телефонию и объявления.</p>
+                        <div class="grid grid-cols-2 gap-3 pt-4 border-t border-gray-100">
+                            <div>
+                                <div class="text-2xl font-bold gradient-text">+150%</div>
+                                <div class="text-xs text-gray-500">Конверсия</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold gradient-text">x3</div>
+                                <div class="text-xs text-gray-500">Скорость сделки</div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="case-card reveal" data-delay="200">
+                    <div class="case-image bg-gradient-to-br from-indigo-500 to-blue-600">
+                        <i class="fas fa-industry text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-brand-purple font-semibold mb-2">Производство</div>
+                        <h3 class="text-xl font-bold mb-3">Производство мебели</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Настроили BPM для заказов, склад, производство и доставку в единой системе.</p>
+                        <div class="grid grid-cols-2 gap-3 pt-4 border-t border-gray-100">
+                            <div>
+                                <div class="text-2xl font-bold gradient-text">+80%</div>
+                                <div class="text-xs text-gray-500">Продаж</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold gradient-text">-60%</div>
+                                <div class="text-xs text-gray-500">Срок выполнения</div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="case-card reveal">
+                    <div class="case-image bg-gradient-to-br from-green-500 to-teal-600">
+                        <i class="fas fa-heartbeat text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-brand-purple font-semibold mb-2">Медицина</div>
+                        <h3 class="text-xl font-bold mb-3">Сеть клиник</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Автоматизировали запись пациентов, напоминания, работу с базой.</p>
+                        <div class="grid grid-cols-2 gap-3 pt-4 border-t border-gray-100">
+                            <div>
+                                <div class="text-2xl font-bold gradient-text">+120%</div>
+                                <div class="text-xs text-gray-500">Повторных визитов</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold gradient-text">-40%</div>
+                                <div class="text-xs text-gray-500">Пропусков</div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="case-card reveal" data-delay="100">
+                    <div class="case-image bg-gradient-to-br from-orange-500 to-red-600">
+                        <i class="fas fa-graduation-cap text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-brand-purple font-semibold mb-2">Образование</div>
+                        <h3 class="text-xl font-bold mb-3">Онлайн-школа</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Интегрировали лендинги, платежи, чат-боты и email-рассылки.</p>
+                        <div class="grid grid-cols-2 gap-3 pt-4 border-t border-gray-100">
+                            <div>
+                                <div class="text-2xl font-bold gradient-text">+300%</div>
+                                <div class="text-xs text-gray-500">Учеников</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold gradient-text">24/7</div>
+                                <div class="text-xs text-gray-500">Автопродажи</div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="case-card reveal" data-delay="200">
+                    <div class="case-image bg-gradient-to-br from-yellow-500 to-orange-600">
+                        <i class="fas fa-truck text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-brand-purple font-semibold mb-2">Логистика</div>
+                        <h3 class="text-xl font-bold mb-3">Транспортная компания</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Настроили учет заказов, маршрутов, работу водителей и диспетчеров.</p>
+                        <div class="grid grid-cols-2 gap-3 pt-4 border-t border-gray-100">
+                            <div>
+                                <div class="text-2xl font-bold gradient-text">+90%</div>
+                                <div class="text-xs text-gray-500">Эффективность</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold gradient-text">-35%</div>
+                                <div class="text-xs text-gray-500">Издержки</div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 lg:py-28 bg-gradient-to-b from-gray-50 to-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center mb-16 reveal">
+                <div class="inline-block px-4 py-2 rounded-full bg-green-50 text-green-600 text-sm font-semibold mb-4">
+                    <i class="fas fa-tag mr-1"></i> Прайс
+                </div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6">
+                    Выберите <span class="gradient-text">свой тариф</span>
+                </h2>
+                <p class="text-lg text-gray-600">Прозрачные цены без скрытых платежей. Подберите пакет под ваши задачи</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
+                <!-- START -->
+                <div class="pricing-card reveal">
+                    <div class="text-sm font-semibold text-gray-500 mb-2">START</div>
+                    <h3 class="text-2xl font-bold mb-2">Для старта</h3>
+                    <p class="text-gray-600 text-sm mb-6">Базовая настройка для малого бизнеса</p>
+                    <div class="mb-6">
+                        <div class="text-sm text-gray-500">от</div>
+                        <div class="text-4xl font-extrabold">200 000 ₸</div>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i><span>Базовая настройка CRM</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i><span>1 воронка продаж</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i><span>До 5 сотрудников</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i><span>Базовое обучение</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i><span>Поддержка 1 месяц</span></li>
+                    </ul>
+                    <button class="pricing-btn w-full py-3 rounded-full border-2 border-gray-200 font-semibold hover:border-brand-purple hover:text-brand-purple transition-all" data-tariff="START">Заказать</button>
+                </div>
+
+                <!-- BUSINESS -->
+                <div class="pricing-card pricing-popular reveal" data-delay="100">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-brand-blue to-brand-purple text-white text-xs font-bold shadow-lg">
+                        <i class="fas fa-fire mr-1"></i> ПОПУЛЯРНЫЙ
+                    </div>
+                    <div class="text-sm font-semibold text-white/80 mb-2">BUSINESS</div>
+                    <h3 class="text-2xl font-bold mb-2 text-white">Для роста</h3>
+                    <p class="text-white/80 text-sm mb-6">Полная автоматизация процессов</p>
+                    <div class="mb-6">
+                        <div class="text-sm text-white/70">от</div>
+                        <div class="text-4xl font-extrabold text-white">450 000 ₸</div>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start text-white"><i class="fas fa-check-circle text-green-300 mt-1 mr-3"></i><span>Всё из START +</span></li>
+                        <li class="flex items-start text-white"><i class="fas fa-check-circle text-green-300 mt-1 mr-3"></i><span>Автоматизация процессов</span></li>
+                        <li class="flex items-start text-white"><i class="fas fa-check-circle text-green-300 mt-1 mr-3"></i><span>Интеграции (WhatsApp, сайт, телефония)</span></li>
+                        <li class="flex items-start text-white"><i class="fas fa-check-circle text-green-300 mt-1 mr-3"></i><span>Настройка отчетов</span></li>
+                        <li class="flex items-start text-white"><i class="fas fa-check-circle text-green-300 mt-1 mr-3"></i><span>Поддержка 3 месяца</span></li>
+                    </ul>
+                    <button class="pricing-btn w-full py-3 rounded-full bg-white text-brand-purple font-semibold hover:shadow-xl hover:-translate-y-0.5 transition-all" data-tariff="BUSINESS">Заказать</button>
+                </div>
+
+                <!-- ENTERPRISE -->
+                <div class="pricing-card reveal" data-delay="200">
+                    <div class="text-sm font-semibold text-gray-500 mb-2">ENTERPRISE</div>
+                    <h3 class="text-2xl font-bold mb-2">Для масштабирования</h3>
+                    <p class="text-gray-600 text-sm mb-6">Максимальная автоматизация бизнеса</p>
+                    <div class="mb-6">
+                        <div class="text-sm text-gray-500">от</div>
+                        <div class="text-4xl font-extrabold">900 000 ₸</div>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i><span>Всё из BUSINESS +</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i><span>Полная автоматизация</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i><span>Индивидуальные решения</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i><span>Разработка модулей</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i><span>Поддержка 24/7</span></li>
+                    </ul>
+                    <button class="pricing-btn w-full py-3 rounded-full border-2 border-gray-200 font-semibold hover:border-brand-purple hover:text-brand-purple transition-all" data-tariff="ENTERPRISE">Заказать</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-20 lg:py-28">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center mb-16 reveal">
+                <div class="inline-block px-4 py-2 rounded-full bg-brand-blue/10 text-brand-blue text-sm font-semibold mb-4">
+                    <i class="fas fa-tasks mr-1"></i> Как мы работаем
+                </div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6">
+                    Процесс <span class="gradient-text">работы</span>
+                </h2>
+                <p class="text-lg text-gray-600">6 шагов от первой консультации до работающей системы</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <div class="process-card reveal">
+                    <div class="process-number">01</div>
+                    <i class="fas fa-search process-icon"></i>
+                    <h3 class="text-xl font-bold mb-3">Анализ бизнеса</h3>
+                    <p class="text-gray-600">Изучаем ваши процессы, цели и проблемы. Проводим аудит и брифинг.</p>
+                </div>
+
+                <div class="process-card reveal" data-delay="100">
+                    <div class="process-number">02</div>
+                    <i class="fas fa-drafting-compass process-icon"></i>
+                    <h3 class="text-xl font-bold mb-3">Проектирование решения</h3>
+                    <p class="text-gray-600">Разрабатываем техническое задание с учетом всех ваших требований.</p>
+                </div>
+
+                <div class="process-card reveal" data-delay="200">
+                    <div class="process-number">03</div>
+                    <i class="fas fa-tools process-icon"></i>
+                    <h3 class="text-xl font-bold mb-3">Внедрение Bitrix24</h3>
+                    <p class="text-gray-600">Настраиваем систему, подключаем интеграции, автоматизируем процессы.</p>
+                </div>
+
+                <div class="process-card reveal">
+                    <div class="process-number">04</div>
+                    <i class="fas fa-vial process-icon"></i>
+                    <h3 class="text-xl font-bold mb-3">Тестирование</h3>
+                    <p class="text-gray-600">Проверяем работу всей системы, устраняем ошибки, оптимизируем.</p>
+                </div>
+
+                <div class="process-card reveal" data-delay="100">
+                    <div class="process-number">05</div>
+                    <i class="fas fa-chalkboard-teacher process-icon"></i>
+                    <h3 class="text-xl font-bold mb-3">Обучение команды</h3>
+                    <p class="text-gray-600">Обучаем сотрудников работе в системе, предоставляем инструкции.</p>
+                </div>
+
+                <div class="process-card reveal" data-delay="200">
+                    <div class="process-number">06</div>
+                    <i class="fas fa-life-ring process-icon"></i>
+                    <h3 class="text-xl font-bold mb-3">Поддержка</h3>
+                    <p class="text-gray-600">Сопровождаем проект после запуска, помогаем с доработками.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 lg:py-28 bg-gradient-to-br from-gray-50 to-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="reveal">
+                    <div class="inline-block px-4 py-2 rounded-full bg-brand-purple/10 text-brand-purple text-sm font-semibold mb-4">
+                        <i class="fas fa-building mr-1"></i> О компании
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6">
+                        Мы — команда <span class="gradient-text">экспертов</span> по Bitrix24
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        IntegroSystems.ai — это сертифицированный партнер Bitrix24 с опытом более 5 лет. За это время мы помогли более чем 100 компаниям автоматизировать бизнес и увеличить прибыль.
+                    </p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-blue to-brand-purple flex items-center justify-center text-white flex-shrink-0 mr-4">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold mb-1">Сертифицированные специалисты</h3>
+                                <p class="text-gray-600 text-sm">Все наши сотрудники прошли обучение и сертификацию Bitrix24</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-blue to-brand-purple flex items-center justify-center text-white flex-shrink-0 mr-4">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold mb-1">Индивидуальный подход</h3>
+                                <p class="text-gray-600 text-sm">Решаем задачи конкретного бизнеса, а не продаем шаблоны</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-blue to-brand-purple flex items-center justify-center text-white flex-shrink-0 mr-4">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold mb-1">Гарантия результата</h3>
+                                <p class="text-gray-600 text-sm">Фиксируем результат в договоре и доводим до целевых показателей</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#contact-form" class="inline-flex items-center px-8 py-4 rounded-full bg-gradient-to-r from-brand-blue to-brand-purple text-white font-semibold shadow-xl shadow-brand-purple/30 hover:shadow-2xl hover:-translate-y-1 transition-all">
+                        Обсудить ваш проект <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="relative reveal" data-delay="200">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-4">
+                            <div class="about-stat bg-gradient-to-br from-brand-blue to-brand-purple text-white">
+                                <div class="text-4xl font-extrabold mb-2">100+</div>
+                                <div class="text-sm text-white/90">Успешных внедрений</div>
+                            </div>
+                            <div class="about-stat bg-white border border-gray-100">
+                                <div class="text-4xl font-extrabold gradient-text mb-2">98%</div>
+                                <div class="text-sm text-gray-600">Довольных клиентов</div>
+                            </div>
+                        </div>
+                        <div class="space-y-4 mt-8">
+                            <div class="about-stat bg-white border border-gray-100">
+                                <div class="text-4xl font-extrabold gradient-text mb-2">5+</div>
+                                <div class="text-sm text-gray-600">Лет опыта</div>
+                            </div>
+                            <div class="about-stat bg-gradient-to-br from-purple-600 to-pink-600 text-white">
+                                <div class="text-4xl font-extrabold mb-2">24/7</div>
+                                <div class="text-sm text-white/90">Поддержка клиентов</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact-form" class="py-20 lg:py-28 relative overflow-hidden bg-gradient-to-br from-brand-dark via-brand-dark to-purple-950 text-white">
+        <div class="absolute inset-0 opacity-30">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-brand-blue rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-brand-purple rounded-full filter blur-3xl"></div>
+        </div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12 reveal">
+                    <div class="inline-block px-4 py-2 rounded-full bg-white/10 text-white text-sm font-semibold mb-4 backdrop-blur-sm">
+                        <i class="fas fa-envelope mr-1"></i> Свяжитесь с нами
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6">
+                        Готовы <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">автоматизировать</span> бизнес?
+                    </h2>
+                    <p class="text-lg text-white/80">Оставьте заявку — проведем бесплатный аудит и предложим решение</p>
+                </div>
+
+                <form id="leadForm" class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 lg:p-10 border border-white/20 reveal" data-delay="200">
+                    <div class="grid md:grid-cols-2 gap-5 mb-5">
+                        <div>
+                            <label for="name" class="block text-sm font-medium mb-2 text-white/90">Ваше имя *</label>
+                            <input type="text" id="name" name="name" required class="form-input" placeholder="Иван Иванов">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium mb-2 text-white/90">Телефон *</label>
+                            <input type="tel" id="phone" name="phone" required class="form-input" placeholder="+7 (___) ___-__-__">
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label for="company" class="block text-sm font-medium mb-2 text-white/90">Компания</label>
+                        <input type="text" id="company" name="company" class="form-input" placeholder="Название вашей компании">
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block text-sm font-medium mb-2 text-white/90">Сообщение</label>
+                        <textarea id="message" name="message" rows="4" class="form-input resize-none" placeholder="Расскажите о ваших задачах..."></textarea>
+                    </div>
+                    <input type="hidden" id="source" name="source" value="contact-form">
+                    <input type="hidden" id="tariff" name="tariff" value="">
+
+                    <button type="submit" class="w-full py-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold text-lg shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                        <span id="submitText"><i class="fas fa-paper-plane mr-2"></i>Оставить заявку</span>
+                        <span id="submitLoader" class="hidden"><i class="fas fa-spinner fa-spin mr-2"></i>Отправка...</span>
+                    </button>
+
+                    <p class="text-center text-sm text-white/60 mt-4">
+                        <i class="fas fa-lock mr-1"></i> Ваши данные защищены. Мы не передаём их третьим лицам.
+                    </p>
+
+                    <div id="successMsg" class="hidden mt-6 p-5 rounded-2xl bg-green-500/20 border border-green-400/50 text-center">
+                        <i class="fas fa-check-circle text-4xl text-green-400 mb-2"></i>
+                        <h3 class="text-xl font-bold mb-2">Заявка отправлена!</h3>
+                        <p class="text-white/80">Мы свяжемся с вами в течение 15 минут</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacts" class="bg-brand-dark text-white py-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Logo & About -->
+                <div class="lg:col-span-1">
+                    <a href="#" class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-blue to-brand-purple flex items-center justify-center shadow-lg">
+                            <i class="fas fa-bolt text-white text-lg"></i>
+                        </div>
+                        <span class="text-xl font-bold">IntegroSystems.ai</span>
+                    </a>
+                    <p class="text-white/70 text-sm mb-4">Автоматизируем бизнес-процессы на базе Bitrix24. Официальный партнер.</p>
+                    <div class="flex space-x-3">
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Навигация</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#services" class="text-white/70 hover:text-white transition-colors text-sm">Услуги</a></li>
+                        <li><a href="#solutions" class="text-white/70 hover:text-white transition-colors text-sm">Решения</a></li>
+                        <li><a href="#cases" class="text-white/70 hover:text-white transition-colors text-sm">Кейсы</a></li>
+                        <li><a href="#pricing" class="text-white/70 hover:text-white transition-colors text-sm">Прайс</a></li>
+                        <li><a href="#about" class="text-white/70 hover:text-white transition-colors text-sm">О компании</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Услуги</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#solutions" class="text-white/70 hover:text-white transition-colors text-sm">Внедрение Bitrix24</a></li>
+                        <li><a href="#solutions" class="text-white/70 hover:text-white transition-colors text-sm">Настройка CRM</a></li>
+                        <li><a href="#solutions" class="text-white/70 hover:text-white transition-colors text-sm">Интеграции</a></li>
+                        <li><a href="#solutions" class="text-white/70 hover:text-white transition-colors text-sm">Бизнес-процессы</a></li>
+                        <li><a href="#solutions" class="text-white/70 hover:text-white transition-colors text-sm">Обучение</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contacts -->
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Контакты</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start text-white/70 text-sm">
+                            <i class="fas fa-phone text-brand-blue mt-1 mr-3"></i>
+                            <a href="tel:+77001234567" class="hover:text-white">+7 (700) 123-45-67</a>
+                        </li>
+                        <li class="flex items-start text-white/70 text-sm">
+                            <i class="fas fa-envelope text-brand-blue mt-1 mr-3"></i>
+                            <a href="mailto:info@bitrixpro.kz" class="hover:text-white">info@bitrixpro.kz</a>
+                        </li>
+                        <li class="flex items-start text-white/70 text-sm">
+                            <i class="fas fa-map-marker-alt text-brand-blue mt-1 mr-3"></i>
+                            <span>г. Алматы, пр. Достык 100</span>
+                        </li>
+                        <li class="flex items-start text-white/70 text-sm">
+                            <i class="fas fa-clock text-brand-blue mt-1 mr-3"></i>
+                            <span>Пн-Пт: 9:00 — 19:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-white/60 text-sm">© 2026 IntegroSystems.ai. Все права защищены.</p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="#" class="text-white/60 hover:text-white transition-colors">Политика конфиденциальности</a>
+                    <a href="#" class="text-white/60 hover:text-white transition-colors">Публичная оферта</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+
+</body>
+</html>

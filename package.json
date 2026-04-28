@@ -1,0 +1,10 @@
+{
+  "name": "integro-systems-fullstack",
+  "version": "2.0.0",
+  "description": "Лендинг IntegroSystems.ai + Express API (Telegram). Запуск одной командой.",
+  "scripts": {
+    "install": "cd backend && npm install",
+    "start": "cd backend && npm start",
+    "dev": "cd backend && npm run dev"
+  }
+}
